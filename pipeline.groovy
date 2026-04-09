@@ -7,8 +7,13 @@ pipeline {
         DSS_PROJECT = "DKU_CHURN" // Go to DSS, open your project, look at the URL for the Key
         
         // --- TARGET SETTINGS (Automation Node) ---
-        AUTO_PREPROD_URL = "https://pre-prod-automation-83d16b63-ced39760-int2.gis-dataiker-2.getitstarted.dataiku.com/"
         AUTO_PREPROD_ID = "pre_prod_automation_space-ced39760-int2_node-83d16b63"
+        AUTO_PREPROD_URL = "https://pre-prod-automation-83d16b63-ced39760-int2.gis-dataiker-2.getitstarted.dataiku.com"
+        AUTO_PREPROD_API_KEY = credentials('DSS_API_KEY_PREPROD')
+
+        AUTO_PROD_ID = "automation_space-ced39760-int2_node-83d16b63"
+        AUTO_PROD_URL = "https://automation-83d16b63-ced39760-int2.gis-dataiker-2.getitstarted.dataiku.com"
+        AUTO_PROD_API_KEY = credentials('DSS_API_KEY_PROD')
         
         bundle_name = "${sh(returnStdout: true, script: 'echo "bundle_`date +%Y-%m-%d_%H-%m-%S`"').trim()}"
     }
