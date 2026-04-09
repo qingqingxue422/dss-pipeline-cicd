@@ -49,7 +49,7 @@ pipeline {
                     def uploadSpec = """{
                         "files": [{
                           "pattern": "*.zip",
-                          "target": "generic-local/dss_bundle/"
+                          "target": "generic-local/dss_bundles/"
                         }]
                     }"""
                     def buildInfo = server.upload spec: uploadSpec, failNoOp: true
