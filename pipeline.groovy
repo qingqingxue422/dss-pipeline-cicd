@@ -22,7 +22,7 @@ pipeline {
             steps {
                 cleanWs()
                 sh 'echo ${bundle_name}'
-                git credentialsId: "github-creds", url: "https://github.com/qingqingxue422/dss-pipeline-cicd.git"
+                git branch: 'main', credentialsId: "github-creds", url: "https://github.com/qingqingxue422/dss-pipeline-cicd.git"
                 sh "cat requirements.txt"
                 withPythonEnv('python3') {
                     sh "pip install -U pip"
