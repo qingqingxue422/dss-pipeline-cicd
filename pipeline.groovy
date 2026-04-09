@@ -1,6 +1,15 @@
 pipeline {
     agent any
     environment {
+        // --- DATAIKU SETTINGS ---
+        DESIGN_URL = "https://dss-83d16b63-ced39760-int2.gis-dataiker-2.getitstarted.dataiku.com" // Change if your DSS is on a different port
+        DESIGN_API_KEY = credentials('DSS_API_KEY') // This uses the secret you stored in Jenkins
+        DSS_PROJECT = "DKU_CHURN" // Go to DSS, open your project, look at the URL for the Key
+        
+        // --- TARGET SETTINGS (Automation Node) ---
+        AUTO_PREPROD_URL = "https://pre-prod-automation-83d16b63-ced39760-int2.gis-dataiker-2.getitstarted.dataiku.com/"
+        AUTO_PREPROD_ID = "pre_prod_automation_space-ced39760-int2_node-83d16b63"
+        
         bundle_name = "${sh(returnStdout: true, script: 'echo "bundle_`date +%Y-%m-%d_%H-%m-%S`"').trim()}"
     }
     stages {
@@ -8,7 +17,7 @@ pipeline {
             steps {
                 cleanWs()
                 sh 'echo ${bundle_name}'
-                git credentialsId: "git_hub_ssh", url: "git@github.com:XYZ/dss_pipeline.git"
+                git credentialsId: "github-creds", url: "https://github.com/qingqingxue422/dss-pipeline-cicd.git"
                 sh "cat requirements.txt"
                 withPythonEnv('python3') {
                     sh "pip install -U pip"
